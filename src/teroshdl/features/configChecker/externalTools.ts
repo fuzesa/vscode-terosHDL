@@ -39,7 +39,8 @@ export async function checkExternalToolManager(currentConfig: e_config) {
 
     // Check external tool
     msg += `${INTROICON} Selected external tool: ${selectedTool.toLocaleUpperCase()}. Installation path: "${installationPath}"\n`;
-    let result = await checkBinary(selectedTool, installationPath, selectedTool.toLocaleLowerCase(), ['--version']);
+    const versionFlag = selectedTool.toLocaleLowerCase() === 'vivado' ? '-version' : '--version';
+    let result = await checkBinary(selectedTool, installationPath, selectedTool.toLocaleLowerCase(), [versionFlag]);
     msg = appendMsg(result, msg, selectedTool.toLocaleUpperCase());
     msg += '\n';
     if (!result.successfulConfig) {
